@@ -6,13 +6,7 @@
 Результат представьте в виде контейнерной диаграммы в нотации С4.
 Добавьте ссылку на файл в этот шаблон
 
-**Результат:**
-- [To-Be архитектура — C4 Container, исходник PlantUML](docs/architecture/to-be-c4-container.puml)
-- [To-Be архитектура — C4 Container, PNG](docs/architecture/to-be-c4-container.png) · [SVG](docs/architecture/to-be-c4-container.svg)
-
-Ключевые решения: система разделена на домены (Users, Movies, Payments, Subscriptions); единая точка входа — Proxy Service (API Gateway) с маршрутизацией `/api/*` по доменам; асинхронное взаимодействие — через Kafka (топики `movie-events`, `user-events`, `payment-events`), сервисы публикуют события напрямую; на события подписана внешняя рекомендательная система (Events Service из задания 2 — переходный MVP для проверки этой событийной модели, в целевой архитектуре отдельный сервис событий не нужен); каждой службе — своя БД (database per service); все сервисы развёрнуты в Kubernetes. Переход без простоя обеспечивает паттерн Strangler Fig: фиче-флаг `GRADUAL_MIGRATION` и `MOVIES_MIGRATION_PERCENT` на gateway постепенно переключают трафик с монолита на микросервисы, в целевом состоянии монолит выведен из эксплуатации.
-
-![To-Be C4 Container](docs/architecture/to-be-c4-container.png)
+![To-Be C4 Container](schemas/png/to-be-c4-container.png)
 
 
 ## Задание 2
@@ -64,7 +58,10 @@
     - Добавьте в docker-compose новый сервис, kafka там уже есть
 
 Необходимые тесты для проверки этого API вызываются при запуске npm run test:local из папки tests/postman 
-Приложите скриншот тестов и скриншот состояния топиков Kafka http://localhost:8090 
+Приложите скриншот тестов и скриншот состояния топиков Kafka http://localhost:8090
+
+![postman](etc/screen-postman.png)
+![kafka](etc/screen-kafka.png)
 
 
 ## Задание 3
